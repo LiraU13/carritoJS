@@ -6,19 +6,8 @@ const vaciarCarritoBtn = document.querySelector('#vaciar-carrito');
 
 let articulosCarrito = [];
 
-cargarEventListener();
-function cargarEventListener(){
-    // Agrega evento a botones agregar curso
-    listaCursos.addEventListener('click', agregarCurso);
-
-    // Agrega evento elemento dle carrito
-    carrito.addEventListener('click', eliminarCurso)
-
-    vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-}
-
 // Funciones
-function agregarCurso(e){
+const agregarCurso = (e) => {
     e.preventDefault();
     if(e.target.classList.contains('agregar-carrito')){
         const cursoSeleccionado = e.target.parentElement.parentElement;
@@ -26,7 +15,7 @@ function agregarCurso(e){
     }
 }
 
-function eliminarCurso(e){
+const eliminarCurso = (e) => {
     e.preventDefault();
     if(e.target.classList.contains('borrar-curso')){
         const cursoId = e.target.getAttribute('data-id');
@@ -35,8 +24,17 @@ function eliminarCurso(e){
     }
 }
 
+const vaciarCarrito = () => {
+    // Forma Lenta
+    // contenedorCarrito.innerHTML = '';
+    
+    while(contenedorCarrito.firstChild){
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+    }
+}
+
 // Leer el contenido del elemento html
-function leerDatosCurso(curso){
+const leerDatosCurso = (curso) => {
     //crear un objeto con el contenido del curso actual
     const infoCurso = {
         imagen: curso.querySelector('img').src,
@@ -68,7 +66,7 @@ function leerDatosCurso(curso){
 }
 
 //Muestra el carrito de compras en HTML
-function carritoHTML(){
+const carritoHTML = () => {
 
     vaciarCarrito();
 
@@ -97,12 +95,13 @@ function carritoHTML(){
     })
 }
 
-function vaciarCarrito(){
-    // Forma Lenta
-    // contenedorCarrito.innerHTML = '';
+const cargarEventListener = () => {
+    // Agrega evento a botones agregar curso
+    listaCursos.addEventListener('click', agregarCurso);
     
-    while(contenedorCarrito.firstChild){
-        contenedorCarrito.removeChild(contenedorCarrito.firstChild);
-    }
-
+    // Agrega evento elemento dle carrito
+    carrito.addEventListener('click', eliminarCurso)
+    
+    vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
 }
+cargarEventListener();
